@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="COSMOS — an interactive 3D solar system explorer. Gallery-quality visualization of the eight planets, built with Three.js and real NASA data." />
+  <title>COSMOS — A Solar System Explorer</title>
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/styles.css" />
+</head>
+<body>
+  <!-- 3D canvas -->
+  <canvas id="scene"></canvas>
+
+  <!-- Loading screen -->
+  <div id="loader" class="loader">
+    <div class="loader__inner">
+      <div class="loader__mark">COSMOS</div>
+      <div class="loader__sub">A SOLAR SYSTEM EXPLORER</div>
+      <div class="loader__bar"><div class="loader__fill" id="loaderFill"></div></div>
+      <div class="loader__status" id="loaderStatus">Calibrating instruments</div>
+    </div>
+  </div>
+
+  <!-- Hover label -->
+  <div id="hoverLabel" class="hover-label"></div>
+
+  <!-- HUD overlay -->
+  <div class="hud" aria-hidden="false">
+
+    <!-- Top-left wordmark -->
+    <header class="hud__brand">
+      <div class="hud__wordmark">COSMOS</div>
+      <div class="hud__tagline">A&nbsp;SOLAR&nbsp;SYSTEM&nbsp;EXPLORER</div>
+    </header>
+
+    <!-- Top-right utility buttons -->
+    <div class="hud__utilities">
+      <button class="icon-btn" id="btnOrbits" title="Toggle orbit paths" aria-label="Toggle orbit paths" aria-pressed="true">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25"><ellipse cx="12" cy="12" rx="9" ry="3.5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg>
+      </button>
+      <button class="icon-btn" id="btnRealistic" title="Realistic scale" aria-label="Toggle realistic scale" aria-pressed="false">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25"><path d="M4 12h16M4 8h16M4 16h16"/></svg>
+      </button>
+      <button class="icon-btn" id="btnReset" title="Reset view" aria-label="Reset view">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25"><path d="M4 12a8 8 0 1 0 2.34-5.66"/><path d="M4 4v4h4"/></svg>
+      </button>
+    </div>
+
+    <!-- Left: planetary log -->
+    <nav class="hud__nav" aria-label="Planetary log">
+      <div class="hud__nav-eyebrow">PLANETARY LOG</div>
+      <ul class="planet-list" id="planetList"></ul>
+    </nav>
+
+    <!-- Bottom: time control cluster -->
+    <div class="hud__time-cluster">
+      <button class="icon-btn icon-btn--play" id="btnPlay" aria-label="Pause" aria-pressed="true">
+        <svg class="icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M7 5v14l12-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="divider-v"></div>
+      <div class="time-slider">
+        <div class="time-slider__label">TIME&nbsp;SPEED</div>
+        <div class="time-slider__track" id="timeTrack">
+          <div class="time-slider__fill" id="timeFill"></div>
+          <div class="time-slider__handle" id="timeHandle"></div>
+          <div class="time-slider__ticks">
+            <span>0×</span><span>1×</span><span>5×</span><span>10×</span>
+          </div>
+        </div>
+      </div>
+      <div class="divider-v"></div>
+      <div class="time-readout" id="timeReadout">1.0× REALTIME</div>
+    </div>
+  </div>
+
+  <!-- Info panel (slides in from left) -->
+  <aside class="info-panel" id="infoPanel" aria-hidden="true">
+    <button class="info-panel__close" id="panelClose" aria-label="Close panel">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.25"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+    <div class="info-panel__inner" id="infoPanelInner"></div>
+  </aside>
+
+  <!-- Credits -->
+  <footer class="hud__credit">
+    DATA · NASA&nbsp;&nbsp;·&nbsp;&nbsp;BUILT WITH THREE.JS
+  </footer>
+
+  <!-- Three.js r128 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script type="module" src="scripts/main.js"></script>
+</body>
+</html>
