@@ -1,0 +1,72 @@
+{
+  "project_name": "Cosmos",
+  "built_with": "/animated-website pipeline",
+  "build_date": "2026-04-23",
+  "status": "complete",
+  "tools": {
+    "stitch": {
+      "used": true,
+      "purpose": "HUD + info panel layout generation",
+      "notes": "Generated mockups for the heads-up display, planet info side panel, and bottom time-control cluster."
+    },
+    "ui_ux_pro_max": {
+      "used": true,
+      "purpose": "style, palette, typography selection",
+      "notes": "Orchestrated sibling skills. Selected dark observatory palette, editorial serif + mono pairing, motion curves."
+    },
+    "firecrawl": {
+      "used": false,
+      "purpose": "NASA planetary data scrape",
+      "notes": "Firecrawl was unavailable during the build. Pipeline fell back to web_fetch on the same NASA science URLs to retrieve planetary data. No fabricated data — all values pulled from live NASA pages."
+    },
+    "magic_21st": {
+      "used": true,
+      "purpose": "interactive UI components",
+      "notes": "Generated time-speed slider, sliding side panel, icon button cluster, and planet navigation list. Adapted to vanilla HTML/CSS/JS."
+    },
+    "nano_banana_2": {
+      "used": true,
+      "purpose": "sun + 8 planet textures + nebula backdrop",
+      "notes": "Generated 10 sphere-mappable textures (sun + 8 planets), deep-space nebula backdrop for loading screen, favicon, and OG card."
+    },
+    "brand_skill": {
+      "used": true,
+      "purpose": "voice + microcopy",
+      "notes": "Established 'Quiet Observer' voice archetype, tagline, and planetarium-narrator microcopy throughout."
+    },
+    "design_skill": {
+      "used": true,
+      "purpose": "logo, favicon, OG image",
+      "notes": "Produced minimalist concentric-orbit logo mark, favicon set, and 1200x630 OG card featuring Saturn."
+    },
+    "design_system_skill": {
+      "used": true,
+      "purpose": "token architecture",
+      "notes": "Defined color, spacing, radii, motion, and typography tokens as CSS custom properties."
+    },
+    "ui_styling_skill": {
+      "used": true,
+      "purpose": "interactive HUD components",
+      "notes": "Slider, icon buttons, toggle, side panel with focus trap, hover labels."
+    }
+  },
+  "fallbacks_triggered": [
+    "Firecrawl unavailable -> switched to web_fetch for NASA planetary data scrape. All planet data still sourced live, not fabricated."
+  ],
+  "missing_tools": [
+    "Firecrawl (replaced by web_fetch)"
+  ],
+  "deliverables": [
+    "index.html",
+    "styles.css",
+    "scripts/",
+    "scripts/planet-data.json",
+    "images/",
+    "brief.txt",
+    "build-report.json"
+  ],
+  "deployment": {
+    "platform": "GitHub Pages",
+    "url": "pending"
+  }
+}
