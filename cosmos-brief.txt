@@ -1,0 +1,233 @@
+==============================================================
+SITE: Cosmos — A 3D Solar System Explorer
+==============================================================
+
+ROLE / CONTEXT
+--------------
+Role: You are the lead developer and art director for an educational
+interactive solar system explorer.
+Context: A single-page Three.js experience where users can orbit the
+sun, click any planet to zoom in, and read real NASA data about it.
+The goal is gallery-quality — it should feel like an observatory
+installation, not a dashboard. Data is scraped from NASA's public
+planet pages.
+
+BUILD STACK
+-----------
+1. Stitch              (HUD + info panel layout)
+2. UI UX Pro Max       (palette + typography + motion polish)
+3. Firecrawl           (NASA science pages → planet data JSON)
+   *Fallback:* web_fetch on the same URLs if Firecrawl is unavailable
+4. Magic / 21st.dev    (slider, side panel, icon buttons)
+5. Nano Banana 2       (sun + 8 planet textures + nebula backdrop)
+6. Brand skill         (voice + microcopy)
+7. Design skill        (logo, favicon, OG card)
+8. Design System skill (token architecture)
+9. UI Styling skill    (HUD components)
+
+PURPOSE
+-------
+Let anyone — curious kid, astronomy student, bored adult — explore the
+solar system in 3D, learn real facts about each planet, and walk away
+with a sense of scale and motion that a textbook can't give.
+
+
+==============================================================
+STEP 2 — BRAND VOICE (for `brand` skill)
+==============================================================
+
+Voice archetype: The Quiet Observer — a planetarium narrator who
+respects the subject. Calm, precise, occasionally awestruck but never
+breathless.
+
+Tone dimensions (1–5):
+- Formal ↔ Casual:        3
+- Serious ↔ Playful:      2 (serious, but not sterile)
+- Reserved ↔ Expressive:  3
+- Modern ↔ Timeless:      5 (timeless)
+
+Voice rules:
+- Short sentences. Facts first, wonder second.
+- No cliché space metaphors ("vast expanse," "cosmic dance," "journey
+  through the stars"). Name things plainly.
+- Numbers get units. Always.
+
+Words to use:   orbit, axis, surface, mass, distance, day, year, moon
+Words to avoid: cosmic, epic, ultimate, journey, explore the unknown
+
+Messaging framework:
+- Tagline (≤7 words):     "Eight worlds. One orbit away."
+- Value prop (≤20 words): "An interactive 3D solar system built on
+                           real NASA data. Click a planet to learn it."
+- Key phrases: "Real data, real scale (mostly)," "Click to orbit,"
+               "Eight worlds at your fingertips"
+
+
+==============================================================
+STEP 3 — DESIGN SYSTEM (for `ui-ux-pro-max` + `design-system`)
+==============================================================
+
+Style keywords: observatory, editorial, quiet, precise, cinematic
+
+Preferred direction: dark, generous negative space, information-dense
+where it needs to be. NASA observatory meets a luxury print magazine.
+No "space dashboard" clichés — no hexagon grids, no Matrix green,
+no Orbitron font.
+
+COLOR SYSTEM:
+- Background:     near-black with cool undertone (NOT pure #000)
+- Surface-raised: very dark slate
+- Ink:            warm bone white
+- Accent:         single warm amber/gold, used sparingly for active
+                  states and data highlights
+- Secondary ink:  muted cool blue for supporting text
+- No purple gradients. No neon. No blue-on-black readability traps.
+
+Contrast: WCAG AA minimum, AAA for body.
+
+TYPOGRAPHY (do NOT use Inter / Roboto / Space Grotesk / Orbitron):
+- Display: an interesting serif (Fraunces, Instrument Serif, or
+           Cormorant) — high contrast, slight editorial weight
+- Body:    a clean mono or humanist sans (JetBrains Mono or similar
+           for data, a quiet sans for longer copy)
+- Numbers: tabular figures in data readouts — always
+- Scale:   1.333 perfect fourth
+- Line height: 1.6 body, 1.1 display
+
+SPACING: 4px base — 4, 8, 12, 16, 24, 32, 48, 64, 96, 128
+RADII:   sm 4px | md 8px | lg 16px (HUD prefers tighter radii)
+ELEVATION: minimal. Dark UI — use borders + inner shadow instead of
+drop shadows.
+
+MOTION:
+- Easing:  cubic-bezier(0.22, 1, 0.36, 1) — slow, deliberate glide
+- Camera:  900ms when transitioning between planet focus states
+- Panel:   360ms slide + fade
+- No bounce, no spring-overshoot. Space moves smoothly.
+- prefers-reduced-motion: camera transitions collapse to fade at 200ms
+
+
+==============================================================
+STEP 4 — REFERENCE SCRAPE (for Firecrawl)
+==============================================================
+Primary: https://science.nasa.gov/solar-system/planets/
+Each planet's NASA facts page (8 URLs, one per planet).
+
+Pull: diameter, mass, gravity, day length, year length, distance
+from sun, average temperature, number of moons, atmospheric
+composition, one memorable fact.
+
+Store at scripts/planet-data.json.
+
+Fallback: if Firecrawl fails (auth / rate limit / availability),
+drop to web_fetch on the same URLs and parse manually. Do not
+fabricate data under any circumstance.
+
+
+==============================================================
+STEP 5 — SECTIONS & LAYOUT (for Stitch)
+==============================================================
+
+This is a single-canvas 3D experience, not a scrolling page. Layout:
+
+1. Full-bleed 3D canvas    — Three.js scene, always on
+2. Top-left HUD            — brand mark + tagline, minimal
+3. Bottom-center controls  — play/pause, time speed slider, reset view
+4. Top-right toggle        — orbit lines on/off, realistic scale toggle
+5. Left side panel         — slides in when a planet is clicked;
+                             contains data table + flavor paragraph
+6. Loading screen          — brand + progress indicator while textures
+                             load; dismisses with a soft fade
+
+
+==============================================================
+STEP 6 — IMAGERY (for Nano Banana 2, with fallback)
+==============================================================
+
+Textures to generate (all seamless, sphere-mappable):
+- sun-texture.jpg   — orange-red plasma, high detail
+- mercury.jpg through neptune.jpg (8 planets)
+- hero-backdrop.png — subtle deep-space nebula for loading screen
+- favicon.png       — minimalist solar system mark
+- og-card.png       — 1200×630 for social sharing
+
+Fallback (if Nano Banana 2 fails): use procedural shaders for gas
+giants and solid-color materials tinted to franchise-accurate planet
+colors. Do NOT use flat cartoon textures. Never ship a bright green
+Earth or a hot pink Jupiter.
+
+Star field: 5000+ points, subtle color variation (white-yellow-blue),
+NOT pure white.
+
+
+==============================================================
+STEP 7 — BRAND ASSETS (for `design` skill)
+==============================================================
+
+LOGO:
+- Concept: small concentric orbit rings with a single dot off-axis —
+           quiet, architectural, NOT a clip-art rocket
+- Wordmark: "COSMOS" in Step 3 display serif, tight letter-spacing
+- Variants: full, icon-only, inverse-on-light (for future use)
+- Export:   SVG, PNG @2x, favicon 32/48/180px
+
+OG CARD (1200×630):
+Wordmark top-left, tagline bottom-left, a large render of one planet
+(suggest: Saturn, for the rings) right-60%.
+
+
+==============================================================
+STEP 8 — INTERACTIVE COMPONENTS (for `ui-styling`)
+==============================================================
+
+Required:
+- Slider       — time speed (0× paused → 10× fast), with tick marks
+- Icon button  — play/pause/reset cluster
+- Toggle       — orbit-lines on/off
+- Side panel   — slide-in from left, focus trap, ESC to close
+- Planet label — appears on hover in 3D scene (HTML overlay, not
+                 Three.js sprite — for crisp text)
+
+States: default, hover, active, focus-visible, disabled. Focus ring
+2px amber accent, 2px offset.
+
+Custom orbit camera: drag to rotate, scroll to zoom, right-drag to
+pan. Do NOT use THREE.OrbitControls — not bundled with r128.
+
+
+==============================================================
+STEP 9 — ASSEMBLE & ANIMATE (final index.html)
+==============================================================
+
+RESPONSIVE: works down to 768px. Below that, HUD collapses to a
+bottom sheet + the 3D scene stays interactive.
+
+PERFORMANCE:
+- Target 60fps on a mid-range laptop
+- Compress orbital distances for viewability (don't use real AU
+  scale or Neptune disappears)
+- Size ratios approximate, not real — again, Neptune
+- Texture resolution 1K max; 2K only for hero (Saturn) if needed
+
+SEO / META:
+- <title>Cosmos — Eight Worlds, One Orbit Away</title>
+- meta description = value prop from Step 2
+- OG tags with Step 7 card
+- JSON-LD: CreativeWork schema
+
+ACCESSIBILITY:
+- Keyboard: Tab cycles through planets, Enter focuses one, ESC deselects
+- Screen-reader: each planet has an aria-label with name + quick facts
+- prefers-reduced-motion: disable orbital animation, show static scene
+- Color is never the only signal (type matchups use labels too)
+
+ANIMATION:
+- Loading:       brand fade-in, progress arc 360° as textures load
+- Hero (intro):  camera gentle dolly-in from far out, 3s, cubic ease
+- Planet focus:  camera transitions 900ms with easing from Step 3
+- Panel:         slide-in 360ms, content stagger 80ms between rows
+- Hover label:   fade-in 150ms
+
+DELIVERABLE:
+- index.html + styles.css + scripts/ + images/ + planet-data.json
+- Single deployable folder for GitHub Pages
